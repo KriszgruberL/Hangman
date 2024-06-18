@@ -3,7 +3,7 @@ import platform
 import random
 from typing import List
 
-from asset.words import Words
+from utils.words import Words
 from utils.print_hangman import PrintHangman
 
 
