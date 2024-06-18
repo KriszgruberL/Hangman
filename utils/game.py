@@ -3,6 +3,8 @@ import platform
 import random
 from typing import List
 
+from utils.print_hangman import PrintHangman
+
 
 class Hangman:
     def __init__(self):
@@ -19,11 +21,14 @@ class Hangman:
         self.possible_words: List[str] = ['becode', 'learning', 'mathematics', 'sessions']
         # Python Split String in List using unpack(*) method and select the word using radrange
         self.word_to_find: List[str] = [*self.possible_words[random.randrange(len(self.possible_words))].upper()]
-        self.lives: int = 5
+        self.lives: int = 6
         self.correctly_guessed_letters: List[str] = ['_' for _ in range(len(self.word_to_find))]
         self.wrongly_guessed_letter: List[str] = []
         self.turn_count: int = 0
         self.error_count: int = 0
+        self.print_hangman : List[str] = PrintHangman().ascii_hangman
+
+        print(PrintHangman().title_hangman)
 
     def play(self) -> None:
         """
@@ -32,6 +37,7 @@ class Hangman:
         # Prompts the player to guess a letter. Checks if the guessed letter is correct, updates the game state
         # accordingly (correctly guessed letters, lives, errors), and prints the current game status.
         guess: str = ""  # The letter guessed by the player.
+
         while not guess.isalpha() or len(guess) != 1:
             guess = input("Guess a letter : ").upper().strip()
 
@@ -48,6 +54,7 @@ class Hangman:
                 self.lives -= 1
                 self.error_count += 1
 
+            print(self.print_hangman[self.error_count])
             print("\nCorrectly guessed letters : ", self.correctly_guessed_letters)
             print("Incorrectly guessed letters  : ", self.wrongly_guessed_letter)
             print("Lives : ", self.lives)
@@ -87,15 +94,16 @@ class Hangman:
 
             self.__init__()
             print(self.correctly_guessed_letters)
+            test = True
 
-            while True:
+            while test:
                 self.play()
                 if self.correctly_guessed_letters == self.word_to_find:
                     self.well_played()
-                    break
+                    test = False
                 if self.lives < 1:
                     self.game_over(self.lives)
-                    break
+                    test = False
 
             choice = input("Want to play again ? Y/N : ").upper()
 
