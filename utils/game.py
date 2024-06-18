@@ -3,6 +3,7 @@ import platform
 import random
 from typing import List
 
+from asset.words import Words
 from utils.print_hangman import PrintHangman
 
 
@@ -18,7 +19,7 @@ class Hangman:
        :param turn_count: int Counter for the number of turns played.
        :param error_count: int Counter for the number of errors (wrong guesses) made.
        """
-        self.possible_words: List[str] = ['becode', 'learning', 'mathematics', 'sessions']
+        self.possible_words: List[str] = Words().words_list
         # Python Split String in List using unpack(*) method and select the word using radrange
         self.word_to_find: List[str] = [*self.possible_words[random.randrange(len(self.possible_words))].upper()]
         self.lives: int = 6
