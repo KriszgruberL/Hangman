@@ -2,7 +2,6 @@ import os
 import platform
 import random
 from typing import List
-
 from utils.words import Words
 from utils.print_hangman import PrintHangman
 
@@ -36,6 +35,7 @@ class Hangman:
     def get_guess(self, guess) -> str:
         """
         Prompts the player to guess a letter and ensures it is a valid single alphabetic character.
+        :param guess: The letter guessed by the player.
         :return: A single uppercase letter guessed by the player.
         """
         guess: str = guess.upper().strip()
@@ -95,6 +95,7 @@ class Hangman:
         Displays the current status of the game.
         :param flag: Boolean indicating whether the guess was new or a repeat.
         :param guess: The letter guessed by the player.
+        :return: A dictionary containing the game status information.
         """
         status = {
             "message" : "",
@@ -113,7 +114,6 @@ class Hangman:
     def game_over(self) -> bool:
         """
         Checks if the game is over (i.e., the player has run out of lives).
-        :param lives: The number of lives the player has.
         :return: Boolean indicating whether the game is over.
         """
         return self.lives < 1
@@ -121,6 +121,6 @@ class Hangman:
     def well_played(self) -> bool:
         """
         Displays a congratulatory message when the player wins the game.
+        :return: Boolean indicating whether the player has won the game.
         """
         return self.correctly_guessed_letters == self.word_to_find
-
